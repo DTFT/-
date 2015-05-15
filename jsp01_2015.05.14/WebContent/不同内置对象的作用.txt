@@ -1,0 +1,15 @@
+如果希望在不同的页面中传递对象，可以通过xx.setAttribute("xx,sss)传递
+可以传递对象的几个内置对象有如下
+*pageContext(对于servlet没有)
+	当前页面存在，跳转后数据丢失
+*request(HttpRequestServlet)
+	当前页面存在，数据服务器端跳转存在，客户端跳转不存在
+*session(HttpSession)
+    只有关闭浏览器，session才丢失数据，否则一直存在
+*application(HttpApplication)
+	只要服务器没重启，就存在数据
+	
+使用原则:使用优先级从上到下，能用上面的尽量不用下面的
+
+客户登陆验证、购物车可以用session
+计数器可以用application 
