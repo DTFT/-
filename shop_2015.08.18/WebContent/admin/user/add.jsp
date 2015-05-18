@@ -1,3 +1,7 @@
+
+<%@page import="com.util.ValidateUtil"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.shop.model.ShopException"%>
 <%@page import="com.shop.dao.DAOFactory"%>
 <%@page import="com.shop.dao.IUserDao"%>
@@ -10,8 +14,14 @@
 	String username=request.getParameter("username");
 	String password=request.getParameter("password");
 	String nickname=request.getParameter("nickname");
+	boolean validate=
+	ValidateUtil.validateNull(request, new String [ ]{"username","password","nickname"});
 	
-	System.out.print(nickname);
+	if(!validate){
+%>
+		<jsp:forward page="addInput.jsp" />
+<% 		
+	}
 	
 	User user=new User();
 	user.setNickname(nickname);

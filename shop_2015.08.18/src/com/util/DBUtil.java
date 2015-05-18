@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-
 public class DBUtil {
 	public static Connection getConnection(){
 		String username="root";

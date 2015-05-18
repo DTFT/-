@@ -21,7 +21,7 @@ public class UserDao implements IUserDao {
 			con=DBUtil.getConnection();
 			String sql="select count(*) from t_user where username=?";
 			if(con==null){
-				  System.out.println("con is null");
+				  System.out.println("con is null,数据库连接失败");
 				}
 			ps=con.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
