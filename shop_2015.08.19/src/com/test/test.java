@@ -12,10 +12,14 @@ public class test {
 	 
 	 DBUtil.getConnection();
 	 IUserDao userDao=DAOFactory.getUserDao();
-		User user=userDao.load(10);
-
-	 user.setNickname("abc");
-	 user.setPassword("abc");
-	 userDao.update(user);
+		User user=new User();
+		user=userDao.load(5);
+		user.setNickname("abc");
+		user.setUsername("asdasd");
+		user.setPassword("123456");
+		user.setType(1);
+		user.setStatus(1);
+       
+		userDao.update(user);
  }
 }

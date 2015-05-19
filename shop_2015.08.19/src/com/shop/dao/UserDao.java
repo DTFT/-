@@ -30,11 +30,13 @@ public class UserDao implements IUserDao {
 			while(rs.next()){
 				if(rs.getInt(1)>0) throw new ShopException("添加的用户已经存在");
 			}
-			sql="insert into t_user values (null,?,?,?)";
+			sql="insert into t_user values (null,?,?,?,?,?)";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getNickname());
+			ps.setInt(4, user.getStatus());
+			ps.setInt(5, user.getType());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -54,6 +56,8 @@ public class UserDao implements IUserDao {
 
 		try {
 			con=DBUtil.getConnection();
+			User u=this.load(id);
+			if(u.getUsername().equals("admin"))throw new ShopException("admin不能被删除");
 			String sql="delete from t_user where id=?";
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, id);
@@ -76,11 +80,13 @@ public class UserDao implements IUserDao {
 
 		try {
 			con=DBUtil.getConnection();
-			String sql="update t_user set password=?,nickname=? where id=?";
+			String sql="update t_user set password=?,nickname=? ,type=?,status=? where id=?";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, user.getPassword());
 			ps.setString(2, user.getNickname());
-			ps.setInt(3, user.getId());
+			ps.setInt(3, user.getType());
+			ps.setInt(4, user.getStatus());
+			ps.setInt(5, user.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -110,6 +116,8 @@ public class UserDao implements IUserDao {
 				u.setNickname(rs.getString("nickname"));
 				u.setPassword(rs.getString("password"));
 				u.setUsername(rs.getString("username"));
+				u.setType(rs.getInt("type"));
+				u.setStatus(rs.getInt("status"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -139,6 +147,8 @@ public class UserDao implements IUserDao {
 				u.setNickname(rs.getString("nickname"));
 				u.setPassword(rs.getString("password"));
 				u.setUsername(rs.getString("username"));
+				u.setType(rs.getInt("type"));
+				u.setStatus(rs.getInt("status"));
 				users.add(u);
 			}
 		} catch (SQLException e) {
@@ -159,9 +169,9 @@ public class UserDao implements IUserDao {
 		User u=null;
 		try {
 			con=DBUtil.getConnection();
-			String sql="select * from user where username=?";
+			String sql="select * from t_user where username=?";
 			ps=con.prepareStatement(sql);
-			ps.setString(1, "username");
+			ps.setString(1, username);
 			rs=ps.executeQuery();
 			while(rs.next()){
 				u=new User();
@@ -169,9 +179,12 @@ public class UserDao implements IUserDao {
 				u.setNickname(rs.getString("nickname"));
 				u.setPassword(rs.getString("password"));
 				u.setUsername(rs.getString("username"));
+				u.setStatus(rs.getInt("status"));
+				u.setType(rs.getInt("type"));
 			}
 			if(u==null)throw new ShopException("用户名不存在");
 			if(!u.getPassword().equals(password)) throw new ShopException("用户名密码不正确");
+			if(u.getStatus()==1) throw new ShopException("用户处于停用状态，不能登录");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

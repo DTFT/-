@@ -1,4 +1,5 @@
 <%@page import="com.shop.model.ShopException"%>
+<%@page import="com.shop.model.User"%>
 <%@page import="com.shop.dao.DAOFactory"%>
 <%@page import="com.shop.dao.IUserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,18 +11,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
+	<%
 	try{
-	int id=Integer.parseInt(request.getParameter("id"));
-   	IUserDao userDao=DAOFactory.getUserDao();
-	userDao.delete(id);
-	response.sendRedirect("list.jsp");
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		IUserDao ud=DAOFactory.getUserDao();
+		User u=ud.login(username, password);
+		
+		session.setAttribute("loginUser",u);
+		response.sendRedirect(request.getContextPath()+"/admin/user/list.jsp");
+		return;
 	}catch(ShopException e){
-%>
-	<h1 style="color:red">发生错误 ,<%=e.getMessage() %></h1>
-<%
+	%>
+		<h1 style="color:red">发生错误 ,<%=e.getMessage() %></h1>
+	<%	
 	}
-%>
-
+	%>
 </body>
 </html>

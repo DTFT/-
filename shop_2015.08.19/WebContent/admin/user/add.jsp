@@ -27,6 +27,8 @@
 	user.setNickname(nickname);
 	user.setPassword(password);
 	user.setUsername(username);
+	user.setStatus(0);
+	user.setType(0);
 	IUserDao userDao=DAOFactory.getUserDao();
 	try{
 		userDao.add(user);

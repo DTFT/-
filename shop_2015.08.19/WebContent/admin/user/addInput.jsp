@@ -9,9 +9,11 @@
 <title>用户添加</title>
 </head>
 <body>
+   
 <jsp:include page="inc.jsp">
 	<jsp:param value="添加" name="op"/>
 </jsp:include>
+
  	<form action="add.jsp" method="post">
  	<table align="center" width="500" border="1">
  	<tr>
@@ -26,6 +28,7 @@
  	<td>用户昵称：</td><td><input type="text" name="nickname" value="<%=request.getParameter("nickname")%>"/><%=ValidateUtil.showError(request, "nickname") %>
  	</td>
  	</tr>
+ 	
  	<tr>
  	<td colspan="2">
  		<input type="submit" value="添加用户"/> 

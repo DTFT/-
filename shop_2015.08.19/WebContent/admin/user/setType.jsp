@@ -1,5 +1,5 @@
-<%@page import="com.shop.model.ShopException"%>
 <%@page import="com.shop.dao.DAOFactory"%>
+<%@page import="com.shop.model.User"%>
 <%@page import="com.shop.dao.IUserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,17 +11,16 @@
 </head>
 <body>
 <%
-	try{
 	int id=Integer.parseInt(request.getParameter("id"));
-   	IUserDao userDao=DAOFactory.getUserDao();
-	userDao.delete(id);
-	response.sendRedirect("list.jsp");
-	}catch(ShopException e){
-%>
-	<h1 style="color:red">发生错误 ,<%=e.getMessage() %></h1>
-<%
+	IUserDao ud=DAOFactory.getUserDao();
+	User u=ud.load(id);
+	if(u.getType()==0){
+		u.setType(1);
+	}else{
+		u.setType(0);
 	}
+	ud.update(u);
+	response.sendRedirect("list.jsp");
 %>
-
 </body>
 </html>

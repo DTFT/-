@@ -23,4 +23,14 @@
   <filter-name>CharEncoding</filter-name>
   <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <filter>
+  <filter-name>AdminCheckFilter</filter-name>
+  <filter-class>com.shop.filter.AdminCheckFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  <filter-name>AdminCheckFilter</filter-name>
+  <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
 </web-app>
