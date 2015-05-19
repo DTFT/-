@@ -13,6 +13,7 @@ import com.util.DBUtil;
 
 public class UserDao implements IUserDao {
 
+	@SuppressWarnings("resource")
 	public void add(User user) {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -50,7 +51,7 @@ public class UserDao implements IUserDao {
 		
 		Connection con=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
+
 		try {
 			con=DBUtil.getConnection();
 			String sql="delete from t_user where id=?";
@@ -80,7 +81,7 @@ public class UserDao implements IUserDao {
 			ps.setString(1, user.getPassword());
 			ps.setString(2, user.getNickname());
 			ps.setInt(3, user.getId());
-			
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

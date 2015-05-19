@@ -30,10 +30,7 @@
 	IUserDao userDao=DAOFactory.getUserDao();
 	try{
 		userDao.add(user);
-%>
-	添加用户成功！<a href="addInput.jsp">继续添加</a>
-	<a href="list.jsp">用户列表</a>
-<% 
+		response.sendRedirect("list.jsp"); 
 	}catch(ShopException e){
 %>
 	<h1 style="color:red">发生错误 ,<%=e.getMessage() %></h1>

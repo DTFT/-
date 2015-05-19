@@ -1,3 +1,4 @@
+<%@page import="com.util.ValidateUtil"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,36 +9,21 @@
 <title>用户添加</title>
 </head>
 <body>
-<jsp:include page="inc.jsp"/>
-
+<jsp:include page="inc.jsp">
+	<jsp:param value="添加" name="op"/>
+</jsp:include>
  	<form action="add.jsp" method="post">
  	<table align="center" width="500" border="1">
  	<tr>
- 	<td>用户名称：</td><td><input type="text" name="username"/>
- 		<%
- 			Map<String,String> errorMsg=(Map<String,String>)request.getAttribute("errorMsg");
- 		if(errorMsg!=null){
- 				out.println(errorMsg.get("username"));
- 		}
- 		%>
+ 	<td>用户名称：</td><td><input type="text" name="username" value="<%=request.getParameter("username")%>"/><%=ValidateUtil.showError(request, "username") %>
  	</td>
  	</tr>
  	<tr>
- 	<td>用户密码：</td><td><input type="password" name="password"/>
- 	<%		
- 		if(errorMsg!=null){
- 				out.println(errorMsg.get("password"));
- 		}
- 		%>
+ 	<td>用户密码：</td><td><input type="password" name="password" /><%=ValidateUtil.showError(request, "password") %>
  	</td>
  	</tr>
  	<tr>
- 	<td>用户昵称：</td><td><input type="text" name="nickname"/>
- 	 	<%
- 		if(errorMsg!=null){
- 				out.println(errorMsg.get("nickname"));
- 		}
- 		%>
+ 	<td>用户昵称：</td><td><input type="text" name="nickname" value="<%=request.getParameter("nickname")%>"/><%=ValidateUtil.showError(request, "nickname") %>
  	</td>
  	</tr>
  	<tr>

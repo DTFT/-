@@ -2,6 +2,7 @@ package com.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class ValidateUtil {
@@ -18,6 +19,15 @@ public class ValidateUtil {
 		}
 		if (!validate)
 			request.setAttribute("errorMsg", errorMsg);
-		return false;
+		return validate;
+	}
+	
+	public static String showError(HttpServletRequest request,String field){
+		@SuppressWarnings("unchecked")
+		Map<String, String> errorMsg = (Map<String,String>)request.getAttribute("errorMsg");
+		if(errorMsg==null) return "";
+			String msg=errorMsg.get(field);
+		if(msg==null) return "";
+			return msg;
 	}
 }

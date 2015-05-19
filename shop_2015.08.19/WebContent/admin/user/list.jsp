@@ -16,7 +16,9 @@
 
 </head>
 <body>
-<jsp:include page="inc.jsp"/>
+<jsp:include page="inc.jsp">
+	<jsp:param value="列表" name="op"/>
+</jsp:include>
 	<table align="center" border="1" width="800">
 		<tr>
 			<td>用户表示</td>
@@ -33,8 +35,8 @@
 			<td><%=u.getUsername()%></td>
 			<td><%=u.getPassword()%></td>
 			<td><%=u.getNickname()%></td>
-			<td><a href="delete.jsp?id=<%=u.getId()%>">删除</a>&nbsp<a
-				href="">更新</a>
+			<td><a href="delete.jsp?id=<%=u.getId()%>">删除</a> &nbsp
+			<a href="updateInput.jsp?id=<%=u.getId()%>">更新</a>
 		</tr>
 		<%
 			}
